@@ -1,0 +1,23 @@
+{
+  "name": "backend-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KovaSs/backend-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT License",
+  "bugs": {
+    "url": "https://github.com/KovaSs/backend-server/issues"
+  },
+  "homepage": "https://github.com/KovaSs/backend-server#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
