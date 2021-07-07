@@ -1,6 +1,11 @@
+import dotenv from 'dotenv';
+import path from 'path';
 import express from 'express';
+import mongoose from 'mongoose';
 
-const PORT = 5000;
+// Reading custom env variables
+dotenv.config({ path: path.resolve(process.cwd(), process.env.ENV_PATH || '.env' ) })
+const env = process.env;
 
 const app = express();
 
@@ -22,7 +27,16 @@ app.post('/', (req, res) => {
   })
 });
 
-app.listen(PORT, () => {
-  console.log(`SERVER STARTED ON PORT ${PORT}`);
-});
+async function startApp() {
+  try {
+    await mongoose.connect(env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
+    app.listen(env.PORT, () => {
+      console.log(`🚀 SERVER STARTED ON PORT ${env.PORT}`);
+    });
+  } catch (error) {
+    console.log('❌ SERVER ERROR:', error);
+  }
+}
+
+startApp();
