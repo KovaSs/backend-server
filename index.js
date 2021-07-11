@@ -1,7 +1,9 @@
-import dotenv from 'dotenv';
 import path from 'path';
+import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
+
+import Posts from './models/Posts.js';
 
 // Reading custom env variables
 dotenv.config({ path: path.resolve(process.cwd(), process.env.ENV_PATH || '.env' ) })
@@ -19,12 +21,14 @@ app.get('/', (req, res) => {
   })
 });
 
-app.post('/', (req, res) => {
-  res.status(200).json({
-    server: 'working',
-    status: 200,
-    body: req.body
-  })
+app.post('/', async (req, res) => {
+  try {
+    const { author, title, content, picture } = req.body;
+    const post = await Posts.create({ author, title, content, picture });
+    res.json(post);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 });
 
 async function startApp() {
